@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import AddTask from './AddTask';
+import TaskInputForm from './TaskInputForm';
 import Radiobutton from './RadioButton';
-import TaskList from './TaskList';
+import TaskTable from './TaskTable';
 import Title from './Title';
 import { Task } from './types';
 
@@ -19,8 +19,8 @@ function App() {
     <div className="App">
       <Title />
       <Radiobutton />
-      <TaskList tasks={tasks} />
-      <AddTask onAdd={addTask} />
+      <TaskTable tasks={tasks} />
+      <TaskInputForm onAdd={addTask} />
     </div>
   );
 }

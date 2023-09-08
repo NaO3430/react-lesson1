@@ -22,7 +22,6 @@ const TaskInputForm: React.FC<TaskInputFormProps> = ({ onAdd }) => {
       <h2>新規タスクの追加</h2>
       <input ref={taskRef} type="text" />
       <button onClick={() => handleClick(taskRef.current?.value)}>追加</button>
-      console.log("hoge");
     </div>
   );
 };

@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TaskInputForm from './TaskInputForm';
+import Radiobutton from './RadioButton';
+import TaskTable from './TaskTable';
+import Title from './Title';
+import { Task } from './types';
 
 function App() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const addTask = (text: string) => {
+    const newTask: Task = {
+      id: tasks.length + 1,
+      text: text,
+      status: '作業中',
+    };
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <Radiobutton />
+      <TaskTable tasks={tasks} />
+      <TaskInputForm onAdd={addTask} />
     </div>
   );
 }

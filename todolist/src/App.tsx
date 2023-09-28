@@ -3,7 +3,7 @@ import TaskInputForm from './TaskInputForm';
 import Radiobutton from './RadioButton';
 import TaskTable from './TaskTable';
 import Title from './Title';
-import { Task } from './types';
+import { Task, TaskStatus } from './types';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -29,11 +29,23 @@ function App() {
     setTasks(updatedTasks);
   };
 
+  const changeStatus = (id: number, newStatus: TaskStatus) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, status: newStatus } : task
+      )
+    );
+  };
+
   return (
     <div className="App">
       <Title />
       <Radiobutton />
-      <TaskTable tasks={tasks} onTaskDelete={deleteTask} />
+      <TaskTable
+        tasks={tasks}
+        onTaskDelete={deleteTask}
+        onStatusChange={changeStatus}
+      />
       <TaskInputForm onAdd={addTask} />
     </div>
   );

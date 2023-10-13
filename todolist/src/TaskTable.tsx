@@ -1,13 +1,19 @@
 import React from 'react';
-import { Task } from './types';
+import { Task, TaskStatus } from './types';
 import DeleteButton from './DeleteButton';
+import StatusButton from './StatusButton';
 
 type TaskTableProps = {
   tasks: Task[];
   onTaskDelete: (id: number) => void;
+  onStatusChange: (id: number, status: TaskStatus) => void;
 };
 
-const TaskTable: React.FC<TaskTableProps> = ({ tasks, onTaskDelete }) => (
+const TaskTable: React.FC<TaskTableProps> = ({
+  tasks,
+  onTaskDelete,
+  onStatusChange,
+}) => (
   <table>
     <thead>
       <tr>
@@ -22,7 +28,11 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onTaskDelete }) => (
           <td>{task.id}</td>
           <td>{task.text}</td>
           <td>
-            <button>{task.status}</button>
+            <StatusButton
+              taskId={task.id}
+              status={task.status}
+              onStatusChange={onStatusChange}
+            />
           </td>
           <td>
             <DeleteButton taskId={task.id} onDelete={onTaskDelete} />

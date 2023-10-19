@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { TaskFilterStatus } from './types';
 
-function RadioButton() {
-  const [selectedStatus, setSelectedStatus] = React.useState<string>('all');
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedStatus(e.target.value);
-  };
+type RadioButtonProps = {
+  selectedStatus: TaskFilterStatus;
+  onChange: (status: TaskFilterStatus) => void;
+};
+
+function RadioButton({ selectedStatus, onChange }: RadioButtonProps) {
   return (
     <div>
       <label>
@@ -12,7 +14,7 @@ function RadioButton() {
           type="radio"
           value="all"
           checked={selectedStatus === 'all'}
-          onChange={handleChange}
+          onChange={() => onChange('all')}
         />
         すべて
       </label>
@@ -21,7 +23,7 @@ function RadioButton() {
           type="radio"
           value="done"
           checked={selectedStatus === 'done'}
-          onChange={handleChange}
+          onChange={() => onChange('done')}
         />
         完了
       </label>
@@ -30,7 +32,7 @@ function RadioButton() {
           type="radio"
           value="working"
           checked={selectedStatus === 'working'}
-          onChange={handleChange}
+          onChange={() => onChange('working')}
         />
         作業中
       </label>

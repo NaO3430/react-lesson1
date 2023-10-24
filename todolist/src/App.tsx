@@ -3,7 +3,7 @@ import TaskInputForm from './TaskInputForm';
 import Radiobutton from './RadioButton';
 import TaskTable from './TaskTable';
 import Title from './Title';
-import { Task, TaskStatus } from './types';
+import { Task, TaskStatus, TaskFilterStatus } from './types';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -37,12 +37,25 @@ function App() {
     );
   };
 
+  const [selectedStatus, setSelectedStatus] =
+    React.useState<TaskFilterStatus>('all');
+
+  const handleChange = (status: TaskFilterStatus) => {
+    setSelectedStatus(status);
+  };
+
   return (
     <div className="App">
       <Title />
-      <Radiobutton />
+      <Radiobutton onChange={handleChange} selectedStatus={selectedStatus} />
       <TaskTable
-        tasks={tasks}
+        tasks={tasks.filter((task) =>
+          selectedStatus === 'all'
+            ? true
+            : selectedStatus === 'working'
+            ? task.status === '作業中'
+            : task.status === '完了'
+        )}
         onTaskDelete={deleteTask}
         onStatusChange={changeStatus}
       />
